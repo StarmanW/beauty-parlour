@@ -4,9 +4,9 @@
  * This class defines the relevant information for a beautician.
  * Contains the beautician ID, date joined and specialization.
  * This class is a subclass which inherits from a superclass (Person) class.
- * 
  *
  * @version 1.00 2017/7/25
+ * @version 2.00 2017/9/19
  */
 
 //Imports
@@ -71,13 +71,13 @@ public class Beautician extends Person {
     }
 
     //Registration for Beautician
-    public static ArrayList registerBeautician(ArrayList<Beautician> beau) {	
+    public static void registerBeautician(ArrayList<Beautician> beau) {	
         Scanner sc = new Scanner(System.in);
 
         //Local variable declaration
         String fname, lname, street, city, state, contactNum, specialization;
         int zip = 0, numOfBeau = 0, i = 0, newBeau = 0;
-        boolean inputValid = false, inputValid1 = false, beauExist = false;
+        boolean inputValid = false, inputValid1 = false;
         
          while(!inputValid1) {
             try {
@@ -162,7 +162,7 @@ public class Beautician extends Person {
             contactNum = sc.nextLine();
 
             while(!contactNum.matches("^\\d{3}\\-\\d{7,8}$")) {
-                System.out.println("Invalid format or data type, please ensure to input the correct format and data type. e.g. - XXX-XXXXXXX\n");
+                System.out.println("Invalid format or data type, please ensure to input the correct format and data type. e.g. - 016-8887469\n");
                 System.out.print("Enter contact number       : ");
                 contactNum = sc.nextLine();
             }
@@ -183,11 +183,9 @@ public class Beautician extends Person {
             ++newBeau;
             
             //Check if the new member is an existing member
-            beauExist = beau.get(beau.size()-1).equals(beau.get(beau.size()-1), beau);
-
-            if(beauExist) {
+            if(beau.get(beau.size()-1).equals(beau)) {
                 beau.remove(beau.size()-1);     //Remove the latest customer if its an existing member
-                System.out.println("Cannot be added into the system. Same beautician already existed in the system.\n");
+                System.out.println("\nCannot be added into the system. Same beautician already existed in the system.");
                 --newBeau;
             }
         }
@@ -197,33 +195,26 @@ public class Beautician extends Person {
             System.out.println("No new beautician added into the system.\n");
         else
             System.out.println("\n" + newBeau + " beauticians has been successfully added into the system.\n"); 
-
-        //Return the beautician array
-        return beau;
     }
 
     //toString method
     public String toString() {
-    	return String.format("%10s \t %-15s \t %-10s \t %-25s \t %-10s \t %-60s\n", beauticianID, super.getName(), ft.format(dateJoined), specialization, getContactNum(), super.getAddress());
+    	return String.format("%10s \t %-15s \t %-10s \t %-25s \t %-10s \t %-60s\n", beauticianID, name.getFullName(), ft.format(dateJoined), specialization, contactNum, address.getFullAddress());
     }
     
        
     //Equals method to check the same customer existed or not
-    public boolean equals(Object o, ArrayList<Beautician> beautician) {
-        ArrayList<Beautician> beau = beautician;
+    public boolean equals(ArrayList<Beautician> beau) {
         boolean sameBeautician = false;
         
         //Check for same customer name
         for(int i = 0; i < beau.size()-1; i++) {
-            if((((Beautician)o).getName()).equals(beau.get(i).getName()) && (((Beautician)o).getAddress()).equals(beau.get(i).getAddress()) && (((Beautician)o).getContactNum()).equals(beau.get(i).getContactNum())) {
+            if(name.getFullName().equals(beau.get(i).name.getFullName()) && (address.getFullAddress().equals(beau.get(i).address.getFullAddress())) && (contactNum.equals(beau.get(i).contactNum))) {
                 sameBeautician = true;    //Check if the same customer existed 
             }
         }
 
         //Return true if the same customer name exits
-        if(sameBeautician) 
-            return true;
-        else
-            return false;
+        return sameBeautician;
     }
 }

@@ -1,12 +1,12 @@
 /**
- * @(#)Person.java
+ * @(#)Name.java
  *
  * This class defines the name information for the Person class.
- * It is a composition relationship with the Person class. (Exclusive has-a)
+ * It has a composition relationship with the Person class. (Exclusive has-a)
  * Each person only has a unique name.
  *
- *
  * @version 1.00 2017/7/25
+ * @version 2.00 2017/9/19
  */
 
 public class Name {

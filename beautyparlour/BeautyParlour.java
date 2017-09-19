@@ -14,11 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * 
  * Main program driver which is the main class that consists of the main 
  * function to run all the classes.
  * 
  * @version 1.00 2017/7/28
+ * @version 2.00 2017/9/19
  */
 
 //Imports
@@ -28,7 +28,6 @@ import java.text.ParseException;
 public final class BeautyParlour {
     public static void main(String[] args) throws ParseException {
         //Create all the necessary objects to initialise the application
-        Utility util = new Utility();
         ArrayList<Beautician> beau = Utility.predefinedBeauticians();
         ArrayList<Customer> cust = Utility.predefinedCustomers();
         ArrayList<Treatment> treat = Utility.predefinedTreatment();
@@ -48,8 +47,8 @@ public final class BeautyParlour {
             choice = Utility.systemMainScreen();
             if(choice.equals("1")) {
             	//Call the login methods
-                loginUser = Utility.login();
-
+                ///loginUser = Utility.login();
+                loginUser = 1;
                 do {
                     //Set backToMainMenu flag to false - Reset flag everytime after each menu
                     backToMainMenu = false;
@@ -60,7 +59,7 @@ public final class BeautyParlour {
                     //Main Menu choice check
                     if(choice.equals("1")) {
                         //Make new service
-                        serv = Service.newService(serv, treat, packg, cust, beau);
+                        Service.newService(serv, treat, packg, cust, beau);
                         backToMainMenu = true;
                     } else if(choice.equals("2")) {
                         //Registration
@@ -69,16 +68,16 @@ public final class BeautyParlour {
                         //Check for sub menu choice
                         if (registrationChoice.equals("1")) {
                             //Customer registration
-                            cust = Customer.registerCustomer(cust);
+                            Customer.registerCustomer(cust);
                         } else if (registrationChoice.equals("2")) {
                             //Beautician registration
-                            beau = Beautician.registerBeautician(beau);        
+                            Beautician.registerBeautician(beau);        
                         } else if (registrationChoice.equals("3")) {
                             //Treatment registration
-                            treat = Treatment.registerTreatments(treat);
+                            Treatment.registerTreatments(treat);
                         } else if (registrationChoice.equals("4")) {
                             //Package registration
-                            packg = Package.registerPackage(packg, treat); 
+                            Package.registerPackage(packg, treat); 
                         }
                         
                         //Set flag to true, return to main menu after each operation
@@ -107,7 +106,7 @@ public final class BeautyParlour {
                                 Utility.displayTreatments(treat);
                             } else if(recordsChoice.equals("7")) {
                                 //Display package list
-                                Utility.displayPackage(packg);
+                                Utility.displayPackages(packg);
                             } else if(recordsChoice.equals("8")) {
                                 //Display customer member list
                                 Utility.displayCustomerMember(cust);
@@ -123,7 +122,7 @@ public final class BeautyParlour {
                                 Utility.displayTreatments(treat);
                             } else if(recordsChoice.equals("2")) {
                                 //Display package list
-                                Utility.displayPackage(packg);
+                                Utility.displayPackages(packg);
                             } else if(recordsChoice.equals("3")) {
                                 //Display customer member list
                                 Utility.displayCustomerMember(cust);

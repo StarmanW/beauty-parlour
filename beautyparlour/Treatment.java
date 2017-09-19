@@ -7,6 +7,7 @@
  *
  *
  * @version 1.00 2017/7/31
+ * @version 2.00 2017/9/19
  */
 
 //Imports
@@ -49,8 +50,11 @@ public class Treatment {
     	return treatmentPrice;
     }
     
-    public boolean getFreeTrials() {
-        return freeTrials;
+    public String getFreeTrials() {
+        if(freeTrials)
+            return "Yes";
+        else
+            return "No";
     }
     
     public static int getTreatmentCount() {
@@ -75,12 +79,12 @@ public class Treatment {
     }
     
     //Registration for Treatments
-    public static ArrayList registerTreatments(ArrayList<Treatment> treat) {
+    public static void registerTreatments(ArrayList<Treatment> treat) {
         Scanner sc = new Scanner(System.in);
         
         //Local variable declaration
         boolean inputValid = false, invalidPrice = false, freeTrials = false;
-        int numOfTreat = 0, i = 0;
+        int numOfTreat = 0, i = 0, newTreat = 0;
         String serviceChoice, treatCode, treatName, treatDesc, servName, allowTrials;
         double treatPrice = 0.0;
         
@@ -176,25 +180,39 @@ public class Treatment {
             //Reset the flag and add new customer
             inputValid = invalidPrice = false;
             treat.add(new Treatment(String.format(treatCode + "%03d", treat.size()+1), treatDesc, treatPrice, freeTrials));		
+            ++newTreat;      //Counter to count how many new treatment added
+            
+            //Check if the new treatment is an existing treatment
+            if(treat.get(treat.size()-1).equals(treat)) {
+                treat.remove(treat.size()-1);     //Remove the latest treatment if its an existing treatment
+                System.out.println("\nCannot be added into the system. Same treatment already existed in the system.");
+                --newTreat;      //Decrement the counter if treatment existed
+            }
         }
         
         //Output message
-        System.out.println("\n" + i + " new treatments has been successfully added into the system.\n");
-        
-        //Return the array
-        return treat;
+        if(newTreat == 0) 
+            System.out.println("No new treatment added into the system.\n");
+        else
+            System.out.println("\n" + newTreat + " new treatment(s) has been successfully added into the system.\n");
     }
     
     //toString() Method
     public String toString(){
-    	return String.format("%-15s \t %-55s \t RM %,10.2f\t     %-10s", treatmentCode, treatmentDesc, treatmentPrice, freeTrials);
+    	return String.format("%-15s \t %-55s \t RM %,10.2f \t\t %-6s", treatmentCode, treatmentDesc, treatmentPrice, this.getFreeTrials());
     }
     
     //Overriding equals
-    public boolean equals(Object o) {
-    	if(o instanceof Treatment)
-    		return true;
-    	else
-    		return false;	
+    public boolean equals(ArrayList<Treatment> treat) {
+        boolean sameTreatment = false;
+        
+        //Check for same treatment
+        for(int i = 0; i < treat.size()-1; i++) {
+            if(this.treatmentDesc.equals(treat.get(i).getTreatmentDesc()) && this.treatmentPrice == treat.get(i).getTreatmentPrice() && this.getFreeTrials().equals(treat.get(i).getFreeTrials())) 
+                sameTreatment = true;    //Check if the same treatment existed 
+        }
+
+        //Return true if the same treatment exits
+        return sameTreatment;
     }
 }

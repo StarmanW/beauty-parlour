@@ -7,9 +7,9 @@
  * beautician (object), treatment/package (Using Object as declared type,
  * because a service could be either a treatment or a package) and freeTrials
  * to determine whether a particular service is a free trials or not.
- * 
  *
  * @version 1.00 2017/7/25
+ * @version 2.00 2017/9/19
  */
 
 //Imports
@@ -72,8 +72,11 @@ public class Service {
         return treatOrPackage;
     }
 
-    public boolean getFreeTrials() {
-        return freeTrials;
+    public String getFreeTrials() {
+        if(freeTrials)
+            return "Yes";
+        else
+            return "No";
     }
     
     //Setters - Mutators
@@ -106,7 +109,7 @@ public class Service {
     }
 
     //Make new service
-    public static ArrayList newService(ArrayList<Service> serv, ArrayList<Treatment> treat, ArrayList<Package> pack, ArrayList<Customer> cust, ArrayList<Beautician> beau) throws ParseException {
+    public static void newService(ArrayList<Service> serv, ArrayList<Treatment> treat, ArrayList<Package> pack, ArrayList<Customer> cust, ArrayList<Beautician> beau) throws ParseException {
         //Creating necessary Objects to perform new service
         Scanner sc = new Scanner(System.in);
         Utility util = new Utility();
@@ -124,10 +127,10 @@ public class Service {
         Utility.newServiceNotes();
         
         //This is for demo purpose, to illustrate when the registration date is one of the specified holidays.
-        //String testHolidayDate = "25-DEC-2017";
+        String testHolidayDate = "25-DEC-2017";
         
         //Check if the dates are holidays or not
-        if(ft.format(date).equals("28-JAN-2017") || ft.format(date).equals("25-JUN-2017") || ft.format(date).equals("19-OCT-2017") || ft.format(date).equals("25-DEC-2017"))
+        if(ft.format(date).equals("28-JAN-2017") || ft.format(date).equals("25-JUN-2017") || ft.format(date).equals("19-OCT-2017") || testHolidayDate.equals("25-DEC-2017"))
             discountRate = 0.90;
         
         
@@ -143,7 +146,7 @@ public class Service {
             sc.nextLine();
         }
         
-        //Prompt for the amount of customer to make service
+        //Prompt for the amount of service(s) to make register
         while(!inputValid) {
             try {
                 System.out.print("Enter the numbers of service(s) to register: ");
@@ -184,7 +187,7 @@ public class Service {
                     sc.nextLine();
                 }
 
-                //Loop throught array to get the object of the entered customer ID
+                //Loop through array to get the object of the entered customer ID
                 for(int a = 0; a < cust.size(); a++) {
                     if((cust.get(a).getMemberID()).equals("CUST"+custID)) {
                         custIndex = a;
@@ -224,7 +227,7 @@ public class Service {
 
                 if(!serviceChoice.equals("5")) {
                     do {
-                        //Enter the service/treatments or package
+                        //Enter the service/treatments code 
                         System.out.print("Enter service/treatment Code: ");
                         treatPackID = sc.next();
                         sc.nextLine();
@@ -236,7 +239,7 @@ public class Service {
                             sc.nextLine();                
                         }
 
-                        //Loop throught array to get the object of the entered treatment code
+                        //Loop through array to get the object of the entered treatment code
                         for(int a = 0; a < treat.size(); a++) {
                             if((treat.get(a).getTreatmentCode()).equals(treatPackID)) {
                                 treatPackIndex = a;
@@ -248,7 +251,7 @@ public class Service {
                     } while(!treatFound);
                 } else {
                     do {
-                        //Enter the service/treatments or package
+                        //Enter the package code
                         System.out.print("Enter package code: PK");
                         treatPackID = sc.next();
                         sc.nextLine();
@@ -260,7 +263,7 @@ public class Service {
                             sc.nextLine();                
                         }
 
-                        //Loop throught array to get the object of the entered package code
+                        //Loop through array to get the object of the entered package code
                         for(int a = 0; a < pack.size(); a++) {
                             if((pack.get(a).getPackageID()).equals(treatPackID)) {
                                 treatPackIndex = a;
@@ -272,16 +275,16 @@ public class Service {
                     } while(!packFound);
                 }
             } else {
-                //Prompt for the treatments/packages
+                //Display the treatment list and prompt for the preferred treatments
                 System.out.print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
                                  "===================================== List of Free Trials Service ======================================\n" +
                                  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-                //Display the specific treatments/packages list
+                //Display the specific treatments list
                 Utility.displayFreeTrials(treat);
 
                 do {
-                    //Enter the service/treatments or package
+                    //Enter the service/treatments
                     System.out.print("Enter service/treatment/ID: ");
                     treatPackID = sc.next();
                     sc.nextLine();
@@ -293,7 +296,7 @@ public class Service {
                         sc.nextLine();                
                     }
 
-                    //Loop throught array to get the object of the entered treatment code
+                    //Loop through array to get the object of the entered treatment code
                     for(int a = 0; a < treat.size(); a++) {
                         if((treat.get(a).getTreatmentCode()).equals(treatPackID)) {
                             treatPackIndex = a;
@@ -317,12 +320,12 @@ public class Service {
 
                 while(!beauID.matches("^\\d{3}$")) {
                     System.out.println("Invalid beautician ID format, please try again with the correct format. (e.g. BEAU001)\n");            
-                    System.out.print("Enter prefererd beauticians ID: BEAU");
+                    System.out.print("Enter preferred beauticians ID: BEAU");
                     beauID = sc.next();
                     sc.nextLine();
                 }
                 
-                //Loop throught array to get the object of the entered beautician ID
+                //Loop through array to get the object of the entered beautician ID
                 for(int a = 0; a < beau.size(); a++) {
                     if((beau.get(a).getBeauticianID()).equals("BEAU"+beauID)) {
                         beauIndex = a;
@@ -374,21 +377,22 @@ public class Service {
                     refererCount = 0;
                 }
 
+                //Output the totals
+                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" + 
+                                   "================================= Total payment =================================\n" +
+                                   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
                 if(!serviceChoice.equals("5")) {
-                    //Calculate the finaly totals
+                    //Calculate the final totals
                     if(discountRate != 0 && extraMemberDiscountRate != 0)
                         totalPrice = treat.get(treatPackIndex).getTreatmentPrice() * extraMemberDiscountRate * discountRate;
                     else if(discountRate != 0)
                         totalPrice = treat.get(treatPackIndex).getTreatmentPrice() * discountRate;
                     else if(extraMemberDiscountRate != 0) 
-                        totalPrice = treat.get(treatPackIndex).getTreatmentPrice() * extraMemberDiscountRate;
+                        totalPrice = treat.get(treatPackIndex).getTreatmentPrice()* extraMemberDiscountRate;
                     else
                         totalPrice = treat.get(treatPackIndex).getTreatmentPrice();
 
-                    //Output the totals
-                    System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" + 
-                                       "================================= Total payment =================================\n" +
-                                       "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("Selected treatment           : " + treat.get(treatPackIndex).getTreatmentCode() + " - " + treat.get(treatPackIndex).getTreatmentDesc());
                     System.out.println(String.format("Treatment price              : RM %7.2f", treat.get(treatPackIndex).getTreatmentPrice()));
                     if(discountRate != 0)
@@ -398,12 +402,11 @@ public class Service {
                     System.out.println(String.format("Total price after discount   : RM %7.2f", totalPrice));
                     if(totalPrice >= 1000)
                         System.out.println(String.format("Deposit required (50%%)       : RM %7.2f", (totalPrice * 0.5)));
-                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
                     //Creating new service for treatment as the service care choice
                     serv.add(new Service(String.format("APT%05d", serv.size() + 1), ft.parse(treatDate), totalPrice, cust.get(custIndex), beau.get(beauIndex), treat.get(treatPackIndex), false));
                 } else {
-                    //Calculate the finaly totals
+                    //Calculate the final totals
                     if(discountRate != 0 && extraMemberDiscountRate != 0)
                         totalPrice = pack.get(treatPackIndex).getPackagePrice() * extraMemberDiscountRate * discountRate;
                     else if(discountRate != 0)
@@ -413,10 +416,6 @@ public class Service {
                     else
                         totalPrice = pack.get(treatPackIndex).getPackagePrice();    
 
-                    //Output the totals
-                    System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" + 
-                                       "================================= Total payment =================================\n" +
-                                       "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     System.out.println("Selected package             : " + pack.get(treatPackIndex).getPackageID() + " - " + pack.get(treatPackIndex).getPackageName());
                     System.out.println(String.format("Package price                : RM %7.2f", pack.get(treatPackIndex).getPackagePrice()));
                     if(discountRate != 0)
@@ -426,11 +425,12 @@ public class Service {
                     System.out.println(String.format("Total price after discount   : RM %7.2f", totalPrice));
                     if(totalPrice >= 1000)
                         System.out.println(String.format("Deposit required (50%%)       : RM %7.2f", (totalPrice * 0.5)));
-                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                     
                     //Creating new service for package as the service care choice
                     serv.add(new Service(String.format("APT%05d", serv.size() + 1), ft.parse(treatDate), totalPrice, cust.get(custIndex), beau.get(beauIndex), pack.get(treatPackIndex), false));
                 }
+
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             } else {
                 //Creating new service for free trials
                 serv.add(new Service(String.format("APT%05d", serv.size() + 1), ft.parse(treatDate), 0.0, cust.get(custIndex), beau.get(beauIndex), treat.get(treatPackIndex), true));
@@ -442,9 +442,6 @@ public class Service {
         
         //Output message
         System.out.println("\n" + i + " service(s) has been successfully recorded into the system.\n");
-        
-        //Return the latest service array
-        return serv;
     }
     
     public String toString() {
@@ -453,21 +450,14 @@ public class Service {
         //If the chosen service care is treatment, display treatment details
         //otherwise, display the package details.
         if(treatOrPackage instanceof Treatment) {
-            return String.format("%s \t %-20s \t RM %,8.2f \t %-10s \t %-15s \t %-10s \t %-15s \t\t%-10s \t %-55s \t%-5s", 
-                    serviceID, ft.format(serviceDate), totalPrice, customer.getMemberID(), customer.getName(),
-                    beautician.getBeauticianID(), beautician.getName(), ((Treatment)treatOrPackage).getTreatmentCode(), 
-                    ((Treatment)treatOrPackage).getTreatmentDesc(),freeTrials);   
+            return String.format("%s \t %-20s \t RM %,8.2f \t %-10s \t %-15s \t %-10s \t %-15s \t\t%-10s \t %-60s \t %6s", 
+                    serviceID, ft.format(serviceDate), totalPrice, customer.getMemberID(), customer.name.getFullName(),
+                    beautician.getBeauticianID(), beautician.name.getFullName(), ((Treatment)treatOrPackage).getTreatmentCode(), 
+                    ((Treatment)treatOrPackage).getTreatmentDesc(),this.getFreeTrials());   
         } else 
-            return String.format("%s \t %-20s \t RM %,8.2f \t %-10s \t %-15s \t %-10s \t %-15s \t\t%-10s \t %-55s \t%-5s", 
-                    serviceID, ft.format(serviceDate), totalPrice, customer.getMemberID(), customer.getName(), 
-                    beautician.getBeauticianID(), beautician.getName(), ((Package)treatOrPackage).getPackageID(), 
-                    ((Package)treatOrPackage).getPackageName(),freeTrials);
-    }
-    
-    public boolean equals(Object o) {
-    	if(o instanceof Service)
-    		return true;
-    	else
-    		return false;
+            return String.format("%s \t %-20s \t RM %,8.2f \t %-10s \t %-15s \t %-10s \t %-15s \t\t%-10s \t %-60s \t %6s", 
+                    serviceID, ft.format(serviceDate), totalPrice, customer.getMemberID(), customer.name.getFullName(), 
+                    beautician.getBeauticianID(), beautician.name.getFullName(), ((Package)treatOrPackage).getPackageID(), 
+                    ((Package)treatOrPackage).getPackageName(),this.getFreeTrials());
     }
 }

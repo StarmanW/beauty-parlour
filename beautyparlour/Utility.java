@@ -7,12 +7,14 @@
  * utility methods to provide efficiencies and easy maintenance
  * of each operation/methods.
  * 
- * All methods are made protected static final to limit the accessibility to
+ * All methods are made to default static final to limit the accessibility to
  * only classes that are in the same package/folder, each of the methods are 
  * final as to protect any inheritance or direct modification of the data. 
  * This is to provide a better security of the software.
  * 
  * 
+ * @version 1.00 2017/7/25
+ * @version 2.00 2017/9/19
  */
 
 //Imports
@@ -27,16 +29,12 @@ public final class Utility {
     //Global Objects for all the methods
     //Global Scanner object for each of the methods
     //Global SimpleDateFormat for different methods that requires parsing of date format.
-    static Scanner sc = new Scanner(System.in);
-    static SimpleDateFormat ft = new SimpleDateFormat("dd-MMM-yyyy");
-    
-    //No-args constructor
-    public Utility() {    
-    }
-    
+    private static Scanner sc = new Scanner(System.in);
+    private static SimpleDateFormat ft = new SimpleDateFormat("dd-MMM-yyyy");
+
     /******************* Predefined Objects section ******************/
     //Predefined Beautician Objects - HardCoded, contains 10 beauticians
-    protected static final ArrayList predefinedBeauticians() throws ParseException {
+    static final ArrayList predefinedBeauticians() throws ParseException {
         //ArrayList creation
         ArrayList<Beautician> beau = new ArrayList<>();
         
@@ -56,8 +54,8 @@ public final class Utility {
         return beau;
     }
     
-    //Predefined Customer Objects - HardCoded, contains 10 customer
-    protected static final ArrayList predefinedCustomers() throws ParseException {
+    //Predefined Customer Objects - HardCoded, contains 10 customers
+    static final ArrayList predefinedCustomers() throws ParseException {
         //ArrayList creation
         ArrayList<Customer> cust = new ArrayList<>();
         
@@ -78,7 +76,7 @@ public final class Utility {
     }
     
     //Predefined Treatment Objects - Hardcoded, contains 14 treatments
-    protected static final ArrayList predefinedTreatment() {
+    static final ArrayList predefinedTreatment() {
         //ArrayList Creation
         ArrayList<Treatment> treat = new ArrayList<>();
         
@@ -102,30 +100,23 @@ public final class Utility {
         return treat;
     }
     
-    //Predefined Package Objects - Hardcoded, contains 4 package
-    protected static final ArrayList predefinedPackage(ArrayList<Treatment> treat) {
+    //Predefined Package Objects - Hardcoded, contains 4 packages
+    static final ArrayList predefinedPackage(ArrayList<Treatment> treat) {
         //ArrayList Creation
         ArrayList<Package> packg = new ArrayList<>();
         
         //Creating package objects
-        packg.add(new Package("PK001", "Skin Luxury", "1 x Advance (Acne) (60mins) \n" +
-                              "1 x Instant Radiance Facial (60 Mins)\n" +
-                              "1 x Express Fruit Clean-Up (45 Mins)", 250.00, treat.get(5), treat.get(6)));
-        packg.add(new Package("PK002", "Relaxation Indulgence", "1 x Full Body Massage (Deep Tissue) - (60 mins) \n" +
-                              "1 x Aroma Manicure (45 mins)\n" +
-                              "1 x Aroma Pedicure (45 mins)", 200.00, treat.get(8), treat.get(10)));
-        packg.add(new Package("PK003", "Hair Essentials (Women)", "1 x Hair Blow Dry\n" +
-                              "1 x Ironing\n" +
-                              "1 x Loreal Nourishing Hair Spa", 80.00, treat.get(0), treat.get(1)));
-        packg.add(new Package("PK004", "Woman's Big Day", "Bridal - Hair Upstyle & Make-up (Wedding day & Dinner night)\n" +
-                              "Flower Girl - Hair Upstyle & Make-up (Wedding day only)", 3200.00, treat.get(12), treat.get(13)));
+        packg.add(new Package("PK001", "Skin Luxury", 250.00, treat.get(5), treat.get(6)));
+        packg.add(new Package("PK002", "Relaxation Indulgence", 200.00, treat.get(8), treat.get(10)));
+        packg.add(new Package("PK003", "Hair Essentials (Women)", 80.00, treat.get(0), treat.get(1)));
+        packg.add(new Package("PK004", "Woman's Big Day", 3200.00, treat.get(12), treat.get(13)));
 
         //Return
         return packg;
     }
   
-    //Predefined Service Objects - Hardcoded, contains 12 service
-    protected static final ArrayList predefinedService(ArrayList<Treatment> treat, ArrayList<Package> pack, ArrayList<Customer> cust, ArrayList<Beautician> beau) throws ParseException {
+    //Predefined Service Objects - Hardcoded, contains 12 services
+    static final ArrayList predefinedService(ArrayList<Treatment> treat, ArrayList<Package> pack, ArrayList<Customer> cust, ArrayList<Beautician> beau) throws ParseException {
         //ArrayList Creation
         ArrayList<Service> service = new ArrayList<>();
         
@@ -149,7 +140,7 @@ public final class Utility {
     
     /******************* Screen menu section ******************/
     //Company Name Header
-    protected static final void companyLogoHeader() {
+    static final void companyLogoHeader() {
         System.out.println("========================================================");
         System.out.println("|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|");
         System.out.println("|         Everlove Home Service Beauty Parlour         |");
@@ -158,7 +149,7 @@ public final class Utility {
     }
     
     //Main System screen
-    protected static final String systemMainScreen() {
+    static final String systemMainScreen() {
         //Variable declaration
         String choice = null;
         
@@ -186,7 +177,7 @@ public final class Utility {
     }
     
     //Login module
-    protected static final int login() {
+    static final int login() {
         
         //Local variable declaration
         String loginID = null, password = null;
@@ -226,7 +217,7 @@ public final class Utility {
     }
 
     //System Main Menu
-    protected static final String systemMainMenu() {
+    static final String systemMainMenu() {
         
         //Local variable declaration
         String choice;
@@ -244,7 +235,7 @@ public final class Utility {
         choice = sc.next();
         sc.nextLine();
         
-        //Data type and format check, only numbers range from 1 to 5
+        //Data type and format check, only numbers range from 1 to 4
         while(!choice.matches("^[1-4]{1}$")) {
             System.out.println("Invalid input, please enter only numbers ranging from 1 to 4.\n");
             System.out.print("Enter choice: ");
@@ -256,8 +247,8 @@ public final class Utility {
         return choice;
     }
     
-    //Registration Menu (Option 4)
-    protected static final String registrationMenu() {
+    //Registration Menu (Option 2)
+    static final String registrationMenu() {
         
         //Local variable declaration
         String choice;
@@ -289,15 +280,15 @@ public final class Utility {
     }
 
     //Records menu for staff
-    protected static final String staffRecordMenu() {
+    static final String staffRecordMenu() {
         //Local variable declaration
         String choice;
         
         System.out.print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
                          "========= Records Menu (Staff) =========\n" +
                          "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-                         "1. Display Treatment list\n" +
-                         "2. Display Package list\n" +
+                         "1. Display treatment list\n" +
+                         "2. Display package list\n" +
                          "3. Display customer member list\n" +
                          "4. Display beautician list\n" +
                          "5. Check appointment dates\n" +
@@ -308,7 +299,7 @@ public final class Utility {
         sc.nextLine();
         
         while(!choice.matches("^[1-6]{1}$")) {
-            System.out.println("Invalid input, please try again with only 1 or 6 as input.\n");
+            System.out.println("Invalid input, please try again with only 1 to 6 as input.\n");
             System.out.print("Enter choice: ");
             choice = sc.next();
             sc.nextLine();
@@ -319,7 +310,7 @@ public final class Utility {
     }
     
     //Records/Reports menu for manager
-    protected static final String managerRecordMenu() {
+    static final String managerRecordMenu() {
         //Local variable declaration
         String choice;
         
@@ -329,10 +320,10 @@ public final class Utility {
                          "1. Show customer treatment transactions\n" +
                          "2. Show appointments records\n" +
                          "3. Bridal service report\n" +
-                         "4. Check Beautician's treatment records\n" +
+                         "4. Check beautician's treatment records\n" +
                          "5. Display trial service records\n" +
-                         "6. Display Treatment list\n" +
-                         "7. Display Package list\n" + 
+                         "6. Display treatment list\n" +
+                         "7. Display package list\n" + 
                          "8. Display customer member list\n" +
                          "9. Display beautician list\n" +
                          "10. Return to main menu\n" +
@@ -342,7 +333,7 @@ public final class Utility {
         sc.nextLine();
         
         while(!choice.matches("^([1-9]|[1][0])$")) {
-            System.out.println("Invalid input, please try again with only 1 or 10 as input.\n");
+            System.out.println("Invalid input, please try again with only 1 to 10 as input.\n");
             System.out.print("Enter choice: ");
             choice = sc.next();
             sc.nextLine();
@@ -354,7 +345,7 @@ public final class Utility {
     
     /******************* Output/Report section ******************/
     //Display the notes before making any service
-    protected static final void newServiceNotes() {
+    static final void newServiceNotes() {
         System.out.println("\n\n============================ NOTES =============================\n" +
                            "1. If a customer bring along extra member and registers for any\n" +
                            "services enjoys additional discount as shown in the table below\n\n" +
@@ -373,21 +364,21 @@ public final class Utility {
                            "=================================================================\n\n");
     }
     
-    //Header/Footer for displaying the Package
-    protected static final void treatmentHeaderFooter(String headerFooter) {
+    //Header/Footer for displaying the Treatments based on suitable style
+    static final void treatmentHeaderFooter(String headerFooter) {
         //Display the header if input string is "header"
         //Otherwise, display the footer
         switch (headerFooter) {
             case "header":
-            	System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------");
-            	System.out.println("\t\t\t\t\t\t\t\t\tTREATMENT LIST");
-            	System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------");
-                System.out.printf("%-20s \t %-55s \t %-8s     %-10s\n", "--------------------", "-------------------------------------------------------------", "---------------", "------------------------------------");
-                System.out.printf("%-20s \t\t\t     %-35s \t %-10s     %-20s", "Treatment Code", "Treatment Description", "Treatment Price", "Free trials (Yes - true, No - false)");
-                System.out.printf("\n%-20s \t %-55s \t %-10s     %-10s\n", "--------------------", "-------------------------------------------------------------", "---------------", "------------------------------------");
+            	System.out.println("------------------------------------------------------------------------------------------------------------------------");
+            	System.out.println("\t\t\t\t\t\t\tTREATMENT LIST");
+            	System.out.println("------------------------------------------------------------------------------------------------------------------------");
+                System.out.printf("%-20s \t %-55s \t %-8s     %-10s\n", "--------------------", "-------------------------------------------------------------", "---------------", "-----------");
+                System.out.printf("%-20s \t\t\t     %-35s \t %-10s     %-20s", "Treatment Code", "Treatment Description", "Treatment Price", "Free trials");
+                System.out.printf("\n%-20s \t %-55s \t %-10s     %-10s\n", "--------------------", "-------------------------------------------------------------", "---------------", "-----------");
                 break;
             case "footer":
-                System.out.printf("%-20s \t %-55s \t %-10s     %-10s\n", "--------------------", "-------------------------------------------------------------", "---------------", "------------------------------------");
+                System.out.printf("%-20s \t %-55s \t %-10s     %-10s\n", "--------------------", "-------------------------------------------------------------", "---------------", "-----------");
                 break;
             case "header1":
                 System.out.printf("\n%-20s \t %-55s \t %-8s\n", "--------------------", "-------------------------------------------------------------", "---------------");
@@ -401,7 +392,7 @@ public final class Utility {
     }
 
     //Header/Footer for displaying the Package
-    protected static final void packageHeaderFooter(String headerFooter) {
+    static final void packageHeaderFooter(String headerFooter) {
         //Display the header if input string is "header"
         //Otherwise, display the footer
         if(headerFooter.equals("header")) {
@@ -410,38 +401,43 @@ public final class Utility {
             System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");   
         	
             System.out.printf("%-20s \t %-15s \t %-10s \t %10s \t %-10s\n", "--------------------", "-------------------------", "------------------------------------------------------------", "-------------------------------------------------------", "----------------------------");   
-            System.out.printf("%-20s \t\t%-10s \t\t\t\t\t %-30s \t\t\t\t %-30s \t\t%10s", "Service/Treatment ID", "Package Name", "Treatment 1", "Treatment 2", "Treatment Price");   
+            System.out.printf("%-20s \t\t%-10s \t\t\t\t\t %-30s \t\t\t\t %-30s \t\t %10s", "Service/Treatment ID", "Package Name", "Treatment 1", "Treatment 2", "Package Price");   
             System.out.printf("\n%-20s \t %-15s \t %-10s \t %10s \t %-10s\n", "--------------------", "-------------------------", "------------------------------------------------------------", "-------------------------------------------------------", "----------------------------");   
         } else if (headerFooter.equals("footer"))
             System.out.printf("%-20s \t %-15s \t %-10s \t %10s \t %-10s\n", "--------------------", "-------------------------", "------------------------------------------------------------", "-------------------------------------------------------", "----------------------------");
     }
     
     //Header/Footer for displaying the Service
-    protected static final void serviceHeaderFooter(String headerFooter) {
+    static final void serviceHeaderFooter(String headerFooter) {
         //Display the header if input string is "header"
         //Otherwise, display the footer
         //Different header/footer are designed for different reports
         switch (headerFooter) {
-        	case "beauAppDetails":
-            	System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-            	System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tBeautician Appointment Details");
-            	System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");        		
-				break;
-			case "bridalService":
+            case "beauticianDetailsHead":
+                System.out.println(String.format("%s \t %-10s \t %7s \t %-10s \t %-15s \t %-15s \t%-5s \t %-55s \t%-5s",
+                       "--------------", "------------------", "-----------", "-----------", "---------------------",
+                       "---------------------", "----------------------", "----------------------------------------------------------", "-----------"));
+                System.out.println(String.format("%s \t %-12s \t %7s \t %-10s \t %-15s \t %-15s \t%-5s \t\t\t       %-35s \t%-5s",
+                       "Appointment ID", "Appointment Date", "Total Price", "Customer ID", "Customer Name", "Beautician Name", "Treatment/Package Code", "Treatment/Package", "Free Trials"));
+                System.out.println(String.format("%s \t %-10s \t %7s \t %-10s \t %-15s \t %-15s \t%-5s \t %-55s \t%-5s",
+                       "--------------", "------------------", "-----------", "-----------", "---------------------",
+                       "---------------------", "----------------------", "----------------------------------------------------------", "-----------"));
+                break;
+            case "beauticianDetailsFoot":
+                System.out.println(String.format("%s \t %-10s \t %7s \t %-10s \t %-15s \t %-15s \t%-5s \t %-55s \t%-5s",
+                       "--------------", "------------------", "-----------", "-----------", "---------------------",
+                       "---------------------", "----------------------", "----------------------------------------------------------", "-----------"));
+                break;
+            case "bridalService":
             	System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
             	System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tBridal Service Report");
             	System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");        		
-				break;
-			case "appointmentRecords":
+                break;
+            case "appointmentRecords":
             	System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
             	System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t\tAppointment Records");
             	System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");        		
-				break;	
-			case "custTreatTransaction":
-            	System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-            	System.out.println("\t\t\t\t\t\t\t\t\t\tCustomer Treatment Transaction");
-            	System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-				break;												
+                break;	
             case "header":
                 System.out.println(String.format("%s \t %-10s \t %7s \t %-10s \t %-15s \t %-10s \t %-15s \t%-5s \t %-55s \t%-5s",
                         "--------------", "------------------", "-----------", "-----------", "---------------------",
@@ -458,18 +454,18 @@ public final class Utility {
                         "-------------", "---------------------", "----------------------", "----------------------------------------------------------", "-----------"));
                 break; 
             case "header1":
-                System.out.println(String.format("%s \t %-10s \t %7s \t %-25s \t %-10s \t %-50s \t %-15s",
-                        "--------------", "------------------", "-----------", "--------------------------", "----------------------",
+                System.out.println(String.format("%s \t %-10s \t %-25s \t %-10s \t %-50s \t %-15s",
+                        "--------------", "------------------", "--------------------------", "----------------------",
                         "---------------------------------------------------------", "-----------"));
-                System.out.println(String.format("%s \t %-12s \t %7s \t %-25s \t %-10s \t\t\t\t\t%-35s \t %-10s", 
-                        "Appointment ID", "Appointment Date", "Customer ID", "Customer Name", "Treatment Code", "Treatment", "Total Price"));
-                System.out.println(String.format("%s \t %-10s \t %7s \t %-25s \t %-10s \t %-50s \t %-15s",
-                        "--------------", "------------------", "-----------", "--------------------------", "----------------------", 
+                System.out.println(String.format("%s \t %-12s \t %-25s \t %-10s \t\t\t\t\t%-35s \t %-10s", 
+                        "Appointment ID", "Appointment Date", "Customer Name", "Treatment Code", "Treatment", "Total Price"));
+                System.out.println(String.format("%s \t %-10s \t %-25s \t %-10s \t %-50s \t %-15s",
+                        "--------------", "------------------", "--------------------------", "----------------------", 
                         "---------------------------------------------------------", "-----------"));
                 break;
             case "footer1":
-                System.out.println(String.format("%s \t %-10s \t %7s \t %-25s \t %-10s \t %-50s \t %-15s", 
-                        "--------------", "------------------", "-----------", "--------------------------", "----------------------",
+                System.out.println(String.format("%s \t %-10s \t %-25s \t %-10s \t %-50s \t %-15s", 
+                        "--------------", "------------------", "--------------------------", "----------------------",
                         "---------------------------------------------------------", "-----------"));
                 break;
             case "header2":
@@ -494,7 +490,7 @@ public final class Utility {
     }
     
     //Display the treatments
-    protected static final void displayTreatments(ArrayList<Treatment> treat) {
+    static final void displayTreatments(ArrayList<Treatment> treat) {
         //Display the list of treatments
         treatmentHeaderFooter("header");
         for(int i = 0; i < treat.size(); i++) {
@@ -507,7 +503,7 @@ public final class Utility {
     }
 
     //Display the list of treatments according to a specific choice -- Used by newService(params) methods in Service.java (Service class)
-    protected static final String displaySpecificTreatments(String treatmentChoice, ArrayList<Treatment> treat, ArrayList<Package> packg) {
+    static final String displaySpecificTreatments(String treatmentChoice, ArrayList<Treatment> treat, ArrayList<Package> packg) {
         String treatPackgCodePrefix;
         
         //Display the list of treatments based on the choice
@@ -553,7 +549,7 @@ public final class Utility {
                 treatPackgCodePrefix = "BS";        //Set the prefix code to "BS"
                 break;
             default:
-                displayPackage(packg);              //Display package list
+                displayPackages(packg);              //Display package list
                 treatPackgCodePrefix = "PK";        //Set the prefix code to "PK"
                 break;
         }
@@ -563,10 +559,10 @@ public final class Utility {
     }
 
     //Display the list of free trials treatments
-    protected static final void displayFreeTrials(ArrayList<Treatment> treat) {
+    static final void displayFreeTrials(ArrayList<Treatment> treat) {
         treatmentHeaderFooter("header1"); 
         for(int a = 0; a < treat.size(); a++) {
-            if(treat.get(a).getFreeTrials() == true) {  //Check if the free trials flag is true or not
+            if(treat.get(a).getFreeTrials().equals("Yes")) {  //Check if the free trials flag is true or not
                 System.out.println(String.format("%-15s \t %-55s \t RM %,10.2f", treat.get(a).getTreatmentCode(), treat.get(a).getTreatmentDesc(), treat.get(a).getTreatmentPrice()));    //Display treatments that are free tirals
             }
         }
@@ -574,7 +570,7 @@ public final class Utility {
     }
     
     //Display the package 
-    protected static final void displayPackage(ArrayList<Package> pack) {
+    static final void displayPackages(ArrayList<Package> pack) {
         //Display the list of package
         packageHeaderFooter("header");
         for(int i = 0; i < pack.size(); i++) {
@@ -585,23 +581,23 @@ public final class Utility {
     }
 
     //Display the list of beautician - Used in newService() method in Service class 
-    protected static final void displayBeauticianList(ArrayList<Beautician> beau) {
+    static final void displayBeauticianList(ArrayList<Beautician> beau) {
         //Beautician table list header
-        System.out.printf("\n%-7s \t %-20s \t %-11s \t %-30s\n", "-------------", "---------------------", "-----------", "------------------------");
+        System.out.printf("\n%-7s \t %-20s \t %-11s \t %-30s\n", "-------------", "---------------------", "------------", "------------------------");
         System.out.printf("%-7s \t %-20s \t %-11s \t %-30s\n", "Beautician ID", "Beautician Name", "Contact No.", "Specialization");
-        System.out.printf("%-7s \t %-20s \t %-11s \t %-30s\n", "-------------", "---------------------", "-----------", "------------------------");
+        System.out.printf("%-7s \t %-20s \t %-11s \t %-30s\n", "-------------", "---------------------", "------------", "------------------------");
         for(int i = 0; i < beau.size(); i++) {
             //Display the list of beautician
-            System.out.printf("%-7s \t %-20s \t %-11s \t %-30s\n", beau.get(i).getBeauticianID(), beau.get(i).getName(), beau.get(i).getContactNum(), beau.get(i).getSpecialization());
+            System.out.printf("%-7s \t %-20s \t %-11s \t %-30s\n", beau.get(i).getBeauticianID(), beau.get(i).name.getFullName(), beau.get(i).contactNum, beau.get(i).getSpecialization());
         }
-        System.out.printf("%-7s \t %-20s \t %-11s \t %-30s\n", "-------------", "---------------------", "-----------", "------------------------");
+        System.out.printf("%-7s \t %-20s \t %-11s \t %-30s\n", "-------------", "---------------------", "------------", "------------------------");
         
         //Display the counter
         System.out.println("\n" + beau.size() + " beautician(s) are shown.\n");
     }
 
     //Check beauticians record
-    protected static final void checkBeauticianDetails(ArrayList<Service> serv, ArrayList<Beautician> beau) {
+    static final void checkBeauticianDetails(ArrayList<Service> serv, ArrayList<Beautician> beau) {
         String beauID;
         boolean beauFound = false;
         int beauCount = 0;
@@ -634,36 +630,50 @@ public final class Utility {
         } while(!beauFound);
 
         //Display the service list
-        serviceHeaderFooter("beauAppDetails");		//Display the appropriate header        
-        serviceHeaderFooter("header");
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("\t\t\t\t\t\t\t\t\t\t\tBeautician Appointment Details for BEAU" + beauID);
+        System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");        		
+        serviceHeaderFooter("beauticianDetailsHead");
         for(int i = 0; i < serv.size(); i++) {
             if(("BEAU"+beauID).equals(serv.get(i).getBeautician().getBeauticianID())) {
-                System.out.println(serv.get(i).toString());
+                if(serv.get(i).getTreatOrPackage() instanceof Treatment) {
+                    System.out.println(String.format("%s \t %-20s \t RM %,8.2f \t %-10s \t %-15s \t %-15s \t\t%-10s \t %-60s \t %6s", 
+                            serv.get(i).getServiceID(), ft.format(serv.get(i).getServiceDate()), 
+                            serv.get(i).getTotalPrice(), serv.get(i).getCustomer().getMemberID(), 
+                            serv.get(i).getCustomer().name.getFullName(), serv.get(i).getBeautician().name.getFullName(), 
+                            ((Treatment)serv.get(i).getTreatOrPackage()).getTreatmentCode(), ((Treatment)serv.get(i).getTreatOrPackage()).getTreatmentDesc(), serv.get(i).getFreeTrials()));
+                } else {
+                    System.out.println(String.format("%s \t %-20s \t RM %,8.2f \t %-10s \t %-15s \t %-15s \t\t%-10s \t %-60s \t %6s", 
+                            serv.get(i).getServiceID(), ft.format(serv.get(i).getServiceDate()), 
+                            serv.get(i).getTotalPrice(), serv.get(i).getCustomer().getMemberID(), 
+                            serv.get(i).getCustomer().name.getFullName(), serv.get(i).getBeautician().name.getFullName(), 
+                            ((Package)serv.get(i).getTreatOrPackage()).getPackageID(), ((Package)serv.get(i).getTreatOrPackage()).getPackageName(), serv.get(i).getFreeTrials()));                    
+                }
                 beauCount++;
             }
         }
-        serviceHeaderFooter("footer");
+        serviceHeaderFooter("beauticianDetailsFoot");
         System.out.println("\n" + beauCount + " record(s) are shown.");
     }
 
     //Show full beautician list with complete details 
-    protected static final void displayBeauticianFullDetails(ArrayList<Beautician> beau) {
+    static final void displayBeauticianFullDetails(ArrayList<Beautician> beau) {
         //Beautician table list header
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.println("\t\t\t\t\t\t\t\t\t\t\tBEAUTICIAN LISTS");
+        System.out.println("\t\t\t\t\t\t\t\t\t\tBEAUTICIAN LISTS");
         System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.printf("%-7s \t %-20s \t %-11s \t %-25s \t %-13s \t %s\n", "-------------", "---------------------", "-----------", "------------------------", "-----------", "-----------------------------------------------------------------------");
+        System.out.printf("%-7s \t %-20s \t %-11s \t %-25s \t %-13s \t %s\n", "-------------", "---------------------", "-----------", "------------------------", "------------", "-----------------------------------------------------------------------");
         System.out.printf("%-7s \t %-20s \t %-11s \t %-25s \t %-40s \t %s\n", "Beautician ID", "Beautician Name", "Date Joined", "Specialization", "Contact No.", "Home Address");
-        System.out.printf("%-7s \t %-20s \t %-11s \t %-25s \t %-13s \t %s\n", "-------------", "---------------------", "-----------", "------------------------", "-----------", "-----------------------------------------------------------------------");
+        System.out.printf("%-7s \t %-20s \t %-11s \t %-25s \t %-13s \t %s\n", "-------------", "---------------------", "-----------", "------------------------", "------------", "-----------------------------------------------------------------------");
         for(int i = 0; i < beau.size(); i++) {
             System.out.printf(beau.get(i).toString());
         }
-        System.out.printf("%-7s \t %-20s \t %-11s \t %-25s \t %-13s \t %s\n", "-------------", "---------------------", "-----------", "------------------------", "-----------", "-----------------------------------------------------------------------");
+        System.out.printf("%-7s \t %-20s \t %-11s \t %-25s \t %-13s \t %s\n", "-------------", "---------------------", "-----------", "------------------------", "------------", "-----------------------------------------------------------------------");
         System.out.println("\n" + beau.size() + " beautician(s) are shown\n");
     }
 
     //Show appointment records
-    protected static final void displayAppointmentRecords(ArrayList<Service> serv) {
+    static final void displayAppointmentRecords(ArrayList<Service> serv) {
         //Display the service list
         serviceHeaderFooter("appointmentRecords");
         serviceHeaderFooter("header");
@@ -675,17 +685,17 @@ public final class Utility {
     }
     
     //Display free trial service records
-    protected static final void displayTrialService(ArrayList<Service> serv) {
+    static final void displayTrialService(ArrayList<Service> serv) {
         //Local variables declaration
         int serviceCount = 0;
         
         //Display the service list
         serviceHeaderFooter("header2");
         for(int i = 0; i < serv.size(); i++) {
-            if(serv.get(i).getFreeTrials() == true) { 
+            if(serv.get(i).getFreeTrials().equals("Yes")) { 
                     System.out.println(String.format("%-10s \t %-15s \t %-25s \t %-25s \t %-15s \t\t %-60s", 
                             serv.get(i).getServiceID(), ft.format(serv.get(i).getServiceDate()),
-                            serv.get(i).getCustomer().getName(), serv.get(i).getBeautician().getName(), ((Treatment)serv.get(i).getTreatOrPackage()).getTreatmentCode(),
+                            serv.get(i).getCustomer().name.getFullName(), serv.get(i).getBeautician().name.getFullName(), ((Treatment)serv.get(i).getTreatOrPackage()).getTreatmentCode(),
                             ((Treatment)serv.get(i).getTreatOrPackage()).getTreatmentDesc()));
                 serviceCount++;
             }
@@ -695,7 +705,7 @@ public final class Utility {
     }
 
     //Bridal service report
-    protected static final void bridalReport(ArrayList<Service> serv) {
+    static final void bridalReport(ArrayList<Service> serv) {
         //Local variables declaration
         int bridalCount = 0;
         
@@ -713,23 +723,23 @@ public final class Utility {
     }
     
     //Show full customer member list with complete details
-    protected static final void displayCustomerMember(ArrayList<Customer> cust) {
+    static final void displayCustomerMember(ArrayList<Customer> cust) {
         //Customer table list header
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println("\t\t\t\t\t\t\t\t\tCUSTOMER MEMBER LISTS");
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.printf("%-7s \t %-20s \t %-11s \t %-13s \t %s\n", "-------------", "---------------------", "-----------", "-----------------------------------------------------------------------", "-----------------");
-        System.out.printf("%-7s \t %-20s \t %-11s \t\t\t\t\t %-40s \t %s\n", "Customer ID", "Customer Name", "Contact No.", "Home Address", "Date member since");
-        System.out.printf("%-7s \t %-20s \t %-11s \t %-13s \t %s\n", "-------------", "---------------------", "-----------", "-----------------------------------------------------------------------", "-----------------");
+        System.out.printf("%-7s \t %-20s \t %-11s \t %-13s \t %s\n", "-------------", "---------------------", "------------", "----------------------------------------------------------------------------", "-----------------");
+        System.out.printf("%-7s \t %-20s \t %-11s \t\t\t\t\t %-40s \t %s\n", "Customer ID", "Customer Name", "Contact No.", "Home Address", "Member since");
+        System.out.printf("%-7s \t %-20s \t %-11s \t %-13s \t %s\n", "-------------", "---------------------", "------------", "----------------------------------------------------------------------------", "-----------------");
         for(int i = 0; i < cust.size(); i++) {
             System.out.printf(cust.get(i).toString());
         }
-        System.out.printf("%-7s \t %-20s \t %-11s \t %-13s \t %s\n", "-------------", "---------------------", "-----------", "-----------------------------------------------------------------------", "-----------------");
+        System.out.printf("%-7s \t %-20s \t %-11s \t %-13s \t %s\n", "-------------", "---------------------", "------------", "----------------------------------------------------------------------------", "-----------------");
         System.out.println("\n" + cust.size() + " customer member(s) are shown\n");
     }
     
     //Check the appointment dates by customer ID
-    protected static final void custTreatmentTransaction(ArrayList<Service> serv, ArrayList<Customer> cust) {
+    static final void custTreatmentTransaction(ArrayList<Service> serv, ArrayList<Customer> cust) {
         //Local variables declaration
         String custID;
         boolean custFound = false;
@@ -744,12 +754,12 @@ public final class Utility {
 
             while(!custID.matches("^\\d{4}$")) {
                 System.out.println("Invalid customer ID, please try again and ensure the correct customer ID.\n");
-                System.out.print("Enter customer ID to serach appointment: CUST");
+                System.out.print("Enter customer ID to search appointment: CUST");
                 custID = sc.next();
                 sc.nextLine(); 
             }
 
-            //Loop throught array to get the object of the entered customer ID
+            //Loop through array to get the object of the entered customer ID
             for(int a = 0; a < cust.size(); a++) {
                 if((cust.get(a).getMemberID()).equals("CUST"+custID)) {
                     custFound = true;
@@ -765,16 +775,17 @@ public final class Utility {
 
         //Display the service list
         //Header
-        serviceHeaderFooter("custTreatTransaction");
-        serviceHeaderFooter("header1");
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.println("\t\t\t\t\t\t\t\t\tCustomer Treatment Transaction for CUST" + custID);
+        System.out.println("------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
         //For loop to match the customer ID and display the transaction details
         for(int i = 0; i < serv.size(); i++) {
             if(("CUST"+custID).equals(serv.get(i).getCustomer().getMemberID())) {
-                if(serv.get(i).getTreatOrPackage() instanceof Treatment && serv.get(i).getFreeTrials() == false) {
-                    System.out.println(String.format("%-10s \t %-15s \t %-10s \t %-25s \t %-15s \t\t %-60s \t RM %,8.2f", 
-                            serv.get(i).getServiceID(), ft.format(serv.get(i).getServiceDate()), serv.get(i).getCustomer().getMemberID(),
-                            serv.get(i).getCustomer().getName(), ((Treatment)serv.get(i).getTreatOrPackage()).getTreatmentCode(),
-                            ((Treatment)serv.get(i).getTreatOrPackage()).getTreatmentDesc(), serv.get(i).getTotalPrice()));
+                if(serv.get(i).getTreatOrPackage() instanceof Treatment && serv.get(i).getFreeTrials().equals("Yes")) {
+                    System.out.println(String.format("%-10s \t %-15s \t %-25s \t %-15s \t\t %-60s \t RM %,8.2f", 
+                            serv.get(i).getServiceID(), ft.format(serv.get(i).getServiceDate()), serv.get(i).getCustomer().name.getFullName(), 
+                            ((Treatment)serv.get(i).getTreatOrPackage()).getTreatmentCode(), ((Treatment)serv.get(i).getTreatOrPackage()).getTreatmentDesc(), 
+                            serv.get(i).getTotalPrice()));
                     treatCount++;
                 }
             }
@@ -784,7 +795,7 @@ public final class Utility {
      }
  
     //Check the appointment dates by customer ID
-    protected static final void searchAppointDateByCustID(ArrayList<Service> serv, ArrayList<Customer> cust) {
+    static final void searchAppointDateByCustID(ArrayList<Service> serv, ArrayList<Customer> cust) {
         String custID;
         boolean custFound = false;
         int custCount = 0;
@@ -798,12 +809,12 @@ public final class Utility {
 
             while(!custID.matches("^\\d{4}$")) {
                 System.out.println("Invalid customer ID, please try again and ensure the correct customer ID.\n");
-                System.out.print("Enter customer ID to serach appointment: CUST");
+                System.out.print("Enter customer ID to search appointment: CUST");
                 custID = sc.next();
                 sc.nextLine(); 
             }
 
-            //Loop throught array to get the object of the entered customer ID
+            //Loop through array to get the object of the entered customer ID
             for(int a = 0; a < cust.size(); a++) {
                 if((cust.get(a).getMemberID()).equals("CUST"+custID)) {
                     custFound = true;

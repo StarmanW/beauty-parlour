@@ -6,14 +6,16 @@
  * composition relationship with the Name class.
  *
  * @version 1.00 2017/7/25
+ * @version 2.00 2017/9/19
+ * 
  */
 
 public class Person {
 
     //Data fields
-    private Name name;
-    private Address address;
-    private String contactNum;
+    protected Name name;
+    protected Address address;
+    protected String contactNum;
 
     //No-args constructor
     public Person() {
@@ -26,35 +28,9 @@ public class Person {
         this.contactNum = contactNum;
     }
 
-    //Accessors - Getters
-    public String getName() {
-        return name.getFullName();
-    }
-
-    public String getAddress() {
-        return address.getFullAddress();
-    }
-
-    public String getContactNum() {
-        return contactNum;
-    }
-
-    //Mutators - Setters
-    public void setName(Name name) {
-        this.name = name;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }	
-
-    public void setContactNum(String contactNum) {
-        this.contactNum = contactNum;
-    }
-
     //toString methods
     //e.g. - "Name \t Contact Number \t Address"
     public String toString() {
-        return String.format("%-20s \t %-10s \t %-80s", getName(), contactNum, getAddress());
+        return String.format("%-20s \t %-10s \t %-80s", name.getFullName(), contactNum, address.getFullAddress());
     }
 }

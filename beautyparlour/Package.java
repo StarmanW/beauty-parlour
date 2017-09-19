@@ -6,8 +6,8 @@
  * Contains information such as package ID, package name, package price,
  * treatment 1 and treatment 2.
  * 
- *
  * @version 1.00 2017/7/31
+ * @version 2.00 2017/9/19
  */
 
 //Imports
@@ -20,7 +20,6 @@ public class Package {
     //Data fields declaration
     private String packageID;
     private String packageName;
-    private String packageDesc;
     private double packagePrice;
     private Treatment treat1;
     private Treatment treat2;
@@ -31,10 +30,9 @@ public class Package {
     }
     
     //Parameterised constructor
-    public Package(String packageID, String packageName, String packageDesc, double packagePrice, Treatment treat1, Treatment treat2){
+    public Package(String packageID, String packageName, double packagePrice, Treatment treat1, Treatment treat2){
         this.packageID = packageID;
         this.packageName = packageName;
-        this.packageDesc = packageDesc;
         this.packagePrice = packagePrice;
         this.treat1 = treat1;
         this.treat2 = treat2;
@@ -49,11 +47,7 @@ public class Package {
     public String getPackageName(){
     	return packageName;
     }
-    
-    public String getPackageDesc(){
-    	return packageDesc;
-    }
-    
+
     public double getPackagePrice(){
     	return packagePrice;
     }
@@ -78,11 +72,7 @@ public class Package {
     public void setPackageName(String packageName){
     	this.packageName = packageName;
     }
-    
-    public void setPackageDesc(String packageDesc){
-    	this.packageDesc = packageDesc;
-    }
-    
+
     public void setPackagePrice(double packagePrice){
     	this.packagePrice = packagePrice;
     }
@@ -96,14 +86,14 @@ public class Package {
     }
   
     //Registration for Packages
-    public static ArrayList registerPackage(ArrayList<Package> pack, ArrayList<Treatment> treat) {
+    public static void registerPackage(ArrayList<Package> pack, ArrayList<Treatment> treat) {
         Scanner sc = new Scanner(System.in);
         
         //Local variable declaration
         boolean validPackageNum = false, validPriceInput = false, treat1Found = true, treat2Found = true;
-        int numOfPackg = 0, i = 0, treat1Index = 0, treat2Index = 0;
+        int numOfPackg = 0, i = 0, treat1Index = 0, treat2Index = 0, newPack = 0;
         double packPrice = 0.0;
-        String packName, packDesc, displayMenu, treatID1, treatID2;
+        String packName, displayMenu, treatID1, treatID2;
         
         //Prompt for number of treatments to be added
         while(!validPackageNum) {
@@ -127,11 +117,7 @@ public class Package {
             //New package name
             System.out.print("Enter new package name       : ");
             packName = sc.nextLine();
-            
-            //New package description
-            System.out.print("Enter new package description: ");
-            packDesc = sc.nextLine();
-            
+
             //New package price
             while(!validPriceInput) {
                try {
@@ -224,17 +210,24 @@ public class Package {
             
             //Resetting the flags
             validPackageNum = validPriceInput = treat1Found = treat2Found = false;
-
-            //Adding the new package
-            pack.add(new Package(String.format("PK%03d", pack.size()+1), packName, packDesc, packPrice, treat.get(treat1Index), treat.get(treat2Index)));
+            pack.add(new Package(String.format("PK%03d", pack.size()+1), packName, packPrice, treat.get(treat1Index), treat.get(treat2Index)));
+            ++newPack;      //Counter to count how many new package added
+            
+            //Check if the new package is an existing package
+            if(pack.get(pack.size()-1).equals(pack)) {
+                pack.remove(pack.size()-1);     //Remove the latest package if its an existing package
+                System.out.println("\nCannot be added into the system. Same package already existed in the system.");
+                --newPack;      //Decrement the counter if package existed
+            }
         }
         
         //Output message
-        System.out.println("\n" + i + " new package successfully added into the system.");
-        
-        //Return the package array
-        return pack;
+        if(newPack == 0) 
+            System.out.println("No new package added into the system.\n");
+        else
+            System.out.println("\n" + newPack + " new package(s) has been successfully added into the system.\n");
     }
+        
     
     //Method
     public String toString(){
@@ -242,10 +235,16 @@ public class Package {
     }
     
     //Overriding equals()
-    public boolean equals(Object o) {
-    	if(o instanceof Package)
-    		return true;
-    	else
-    		return false;	
+    public boolean equals(ArrayList<Package> packg) {
+        boolean samePakage = false;
+        
+        //Check for same package
+        for(int i = 0; i < packg.size()-1; i++) {
+            if(this.packageName.equals(packg.get(i).getPackageName()) && this.packagePrice == packg.get(i).getPackagePrice())
+                samePakage = true;    //Check if the same treatment existed 
+        }
+
+        //Return true if the same package exits
+        return samePakage;
     }
 } 

@@ -4,9 +4,9 @@
  * This class defines the relevant information for a customer.
  * Contains the member ID and date member since.
  * This class is a subclass which inherits from a superclass (Person) class.
- * 
  *
  * @version 1.00 2017/7/31
+ * @version 2.00 2017/9/19
  */
 //Imports
 import java.util.Date;
@@ -57,13 +57,13 @@ public class Customer extends Person {
     }
 
     //Registration for Customer
-    public static ArrayList registerCustomer(ArrayList<Customer> cust) {	
+    public static void registerCustomer(ArrayList<Customer> cust) {	
         Scanner sc = new Scanner(System.in);
 
         //Local variable declaration
         String fname, lname, street, city, state, contactNum;
         int zip = 0, numOfCust = 0, i = 0, newCust = 0;
-        boolean inputValid = false, inputValid1 = false, custExist = false;
+        boolean inputValid = false, inputValid1 = false;
 
         while(!inputValid1) {
             try {
@@ -148,7 +148,7 @@ public class Customer extends Person {
             sc.nextLine();
 
             while(!contactNum.matches("^\\d{3}\\-\\d{7,8}$")) {
-                System.out.println("Invalid format or data type, please ensure to input the correct format and data type. e.g. XXX-XXXXXXX\n");
+                System.out.println("Invalid format or data type, please ensure to input the correct format and data type. e.g. 016-8887469\n");
                 System.out.print("Enter contact number     : ");
                 contactNum = sc.next();
                 sc.nextLine();		
@@ -160,10 +160,9 @@ public class Customer extends Person {
             ++newCust;      //Counter to count how many new customer member added
             
             //Check if the new member is an existing member
-            custExist = cust.get(cust.size()-1).equals(cust.get(cust.size()-1), cust);
-            if(custExist) {
+            if(cust.get(cust.size()-1).equals(cust)) {
                 cust.remove(cust.size()-1);     //Remove the latest customer if its an existing member
-                System.out.println("Cannot be added into the system. Same customer already existed in the system.\n");
+                System.out.println("\nCannot be added into the system. Same customer already existed in the system.");
                 --newCust;      //Decrement the counter if customer member existed
             }
         }
@@ -173,9 +172,6 @@ public class Customer extends Person {
             System.out.println("No new customer member added into the system.\n");
         else
             System.out.println("\n" + newCust + " customer has been successfully added into the system.\n");
-        
-        //Return the latest array
-        return cust;
     }
     
     //toString() method
@@ -186,20 +182,16 @@ public class Customer extends Person {
     }
   
     //Equals method to check the same customer existed or not
-    public boolean equals(Object o, ArrayList<Customer> customer) {
-        ArrayList<Customer> cust = customer;
+    public boolean equals(ArrayList<Customer> cust) {
         boolean sameCustomer = false;
         
         //Check for same customer name
         for(int i = 0; i < cust.size()-1; i++) {
-            if((((Customer)o).getName()).equals(cust.get(i).getName()) && (((Customer)o).getAddress()).equals(cust.get(i).getAddress()) && (((Customer)o).getContactNum()).equals(cust.get(i).getContactNum()))
+            if(name.getFullName().equals(cust.get(i).name.getFullName()) && (address.getFullAddress()).equals(cust.get(i).address.getFullAddress()) && (contactNum.equals(cust.get(i).contactNum)))
                 sameCustomer = true;    //Check if the same customer existed 
         }
 
         //Return true if the same customer name exits
-        if(sameCustomer) 
-            return true;
-        else
-            return false;
+        return sameCustomer;
     }
 }

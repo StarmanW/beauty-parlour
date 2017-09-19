@@ -1,12 +1,13 @@
 /**
- * @(#)Person.java
+ * @(#)Address.java
  *
  * Address class which stores the relevant information of address for a person.
  * Contains street, zip, city and state for the address information. 
- * This class is a Aggregated class for the Person class.
+ * This class is the Aggregated class for the Person class.
  * 
- *
  * @version 1.00 2017/7/25
+ * @version 2.00 2017/9/19
+ * 
  */
 
 public class Address {
@@ -64,7 +65,7 @@ public class Address {
     }
     
     //getFullAddresss to return the full address
-    //e.g. - "No.82, Jalan Penampang, Dogongon, 88200, Kota Kinabalu, Sabah" 	
+    //e.g. - "No.82, Jalan Penampang, Dongongon, 88200, Kota Kinabalu, Sabah" 	
     public String getFullAddress() {
         return street + ", " + zip + ", " + city + ", " + state;
     }
