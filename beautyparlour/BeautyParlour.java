@@ -47,8 +47,7 @@ public final class BeautyParlour {
             choice = Utility.systemMainScreen();
             if(choice.equals("1")) {
             	//Call the login methods
-                ///loginUser = Utility.login();
-                loginUser = 1;
+                loginUser = Utility.login();
                 do {
                     //Set backToMainMenu flag to false - Reset flag everytime after each menu
                     backToMainMenu = false;
