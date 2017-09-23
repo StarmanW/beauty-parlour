@@ -346,7 +346,7 @@ public class Service {
                 treatDate = sc.next();
                 sc.nextLine();
 
-                while(!treatDate.matches("^(([0-9])|([0-2][0-9])|([3][0-1]))\\-(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\\-\\d{4}$")){
+                while(!treatDate.matches("^(([0-2][0-9])|([3][0-1]))\\-(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)\\-\\d{4}$")){
                     System.out.println("Invalid date format, please ensure the correct date format is entered. (e.g. 02-JAN-2017)\n");
                     System.out.print("Enter treatment date (e.g. 02-JAN-2017): ");
                     treatDate = sc.next();
@@ -368,14 +368,13 @@ public class Service {
             if(freeTrials.matches("^(N|n)$")) {
                 if (numOfService >= 6 && (refererCount != 0)) {
                     extraMemberDiscountRate = 0.85;
-                    refererCount = 0;
                 } else if (numOfService > 6 && numOfService <= 11 && (refererCount != 0)) {
                     extraMemberDiscountRate = 0.70;
-                    refererCount = 0;
                 } else if (numOfService >= 11 && (refererCount != 0)) {
                     extraMemberDiscountRate = 0.50;
-                    refererCount = 0;
                 }
+
+                refererCount = 0;
 
                 //Output the totals
                 System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" + 
@@ -395,14 +394,6 @@ public class Service {
 
                     System.out.println("Selected treatment           : " + treat.get(treatPackIndex).getTreatmentCode() + " - " + treat.get(treatPackIndex).getTreatmentDesc());
                     System.out.println(String.format("Treatment price              : RM %7.2f", treat.get(treatPackIndex).getTreatmentPrice()));
-                    if(discountRate != 0)
-                        System.out.println("Holidays dicount             : 10%");
-                    if(extraMemberDiscountRate != 0)
-                        System.out.println(String.format("Brought extra member discount: %2.0f%%", ((1 - extraMemberDiscountRate) * 100)));
-                    System.out.println(String.format("Total price after discount   : RM %7.2f", totalPrice));
-                    if(totalPrice >= 1000)
-                        System.out.println(String.format("Deposit required (50%%)       : RM %7.2f", (totalPrice * 0.5)));
-
                     //Creating new service for treatment as the service care choice
                     serv.add(new Service(String.format("APT%05d", serv.size() + 1), ft.parse(treatDate), totalPrice, cust.get(custIndex), beau.get(beauIndex), treat.get(treatPackIndex), false));
                 } else {
@@ -418,18 +409,17 @@ public class Service {
 
                     System.out.println("Selected package             : " + pack.get(treatPackIndex).getPackageID() + " - " + pack.get(treatPackIndex).getPackageName());
                     System.out.println(String.format("Package price                : RM %7.2f", pack.get(treatPackIndex).getPackagePrice()));
-                    if(discountRate != 0)
-                        System.out.println("Holidays dicount             : 10%");
-                    if(extraMemberDiscountRate != 0)
-                        System.out.println(String.format("Brought extra member discount: %2.0f%%", ((1 - extraMemberDiscountRate) * 100)));
-                    System.out.println(String.format("Total price after discount   : RM %7.2f", totalPrice));
-                    if(totalPrice >= 1000)
-                        System.out.println(String.format("Deposit required (50%%)       : RM %7.2f", (totalPrice * 0.5)));
-                    
                     //Creating new service for package as the service care choice
                     serv.add(new Service(String.format("APT%05d", serv.size() + 1), ft.parse(treatDate), totalPrice, cust.get(custIndex), beau.get(beauIndex), pack.get(treatPackIndex), false));
                 }
 
+                if(discountRate != 0)
+                    System.out.println("Holidays dicount             : 10%");
+                if(extraMemberDiscountRate != 0)
+                    System.out.println(String.format("Brought extra member discount: %2.0f%%", ((1 - extraMemberDiscountRate) * 100)));
+                System.out.println(String.format("Total price after discount   : RM %7.2f", totalPrice));
+                if(totalPrice >= 1000)
+                    System.out.println(String.format("Deposit required (50%%)       : RM %7.2f", (totalPrice * 0.5)));
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             } else {
                 //Creating new service for free trials
