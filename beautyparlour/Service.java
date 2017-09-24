@@ -305,6 +305,9 @@ public class Service {
                         } else
                             treatFound = false;
                     }
+                    
+                    if(!treatFound)
+                        System.out.println("Invalid free-trials treatment code, please ensure it is the correct free-trials code listed in the table.\n");
                 } while(!treatFound);
             }
             
