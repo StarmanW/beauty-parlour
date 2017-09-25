@@ -98,7 +98,7 @@ public class Package {
         //Prompt for number of treatments to be added
         while(!validPackageNum) {
             try {
-                System.out.print("Enter number of package to add: ");
+                System.out.print("Enter number of package to add (0 for return back to menu): ");
                 numOfPackg = sc.nextInt();
                 validPackageNum = true;			
             } catch (InputMismatchException e) {
@@ -107,6 +107,7 @@ public class Package {
             }
         }       
 
+        if(numOfPackg == 0) {return;}
         //Move to newline
         sc.nextLine();
    

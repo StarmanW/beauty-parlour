@@ -4,7 +4,7 @@
  * This class defines the relevant information for a customer.
  * Contains the member ID and date member since.
  * This class is a subclass which inherits from a superclass (Person) class.
- *
+ * 
  * @version 1.00 2017/7/31
  * @version 2.00 2017/9/19
  */
@@ -67,7 +67,7 @@ public class Customer extends Person {
 
         while(!inputValid1) {
             try {
-                System.out.print("Enter number of customer to register: ");
+                System.out.print("Enter number of customer to register (0 for return back to menu): ");
                 numOfCust = sc.nextInt();
                 inputValid1 = true;			
             } catch (InputMismatchException e) {
@@ -76,6 +76,7 @@ public class Customer extends Person {
             }
         }
 
+        if(numOfCust == 0) {return;}
         //Take to newline
         sc.nextLine();
 

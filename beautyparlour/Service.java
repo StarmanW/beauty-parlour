@@ -7,7 +7,7 @@
  * beautician (object), treatment/package (Using Object as declared type,
  * because a service could be either a treatment or a package) and freeTrials
  * to determine whether a particular service is a free trials or not.
- *
+ * 
  * @version 1.00 2017/7/25
  * @version 2.00 2017/9/19
  */
@@ -149,7 +149,7 @@ public class Service {
         //Prompt for the amount of service(s) to make register
         while(!inputValid) {
             try {
-                System.out.print("Enter the numbers of service(s) to register: ");
+                System.out.print("Enter the numbers of service(s) to register (0 for return back to menu): ");
                 numOfService = sc.nextInt();
                 inputValid = true;			
             } catch (InputMismatchException e) {
@@ -160,7 +160,9 @@ public class Service {
         
         //Check how many customer are registering at once and set the refererCount to 1
         //To indicate that one customer brought extra members for registration.
-        if((numOfService >= 6) || (numOfService > 6 && numOfService <= 11) || (numOfService >= 11) && freeTrials.matches("^(N|n)$"))
+        if(numOfService == 0)
+            return;
+        else if((numOfService >= 6) || (numOfService > 6 && numOfService <= 11) || (numOfService >= 11) && freeTrials.matches("^(N|n)$"))
             refererCount = 1;
                 
         //Take to newline

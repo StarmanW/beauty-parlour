@@ -5,7 +5,6 @@
  * treatment code, treatment description, treatment price and free trials flag
  * to indicate whether the treatments is available for free trials or not.
  *
- *
  * @version 1.00 2017/7/31
  * @version 2.00 2017/9/19
  */
@@ -91,7 +90,7 @@ public class Treatment {
         //Prompt for number of treatments to be added
         while(!inputValid) {
             try {
-                System.out.print("Enter number of treatments to add: ");
+                System.out.print("Enter number of treatments to add (0 for return back to menu): ");
                 numOfTreat = sc.nextInt();
                 inputValid = true;			
             } catch (InputMismatchException e) {
@@ -100,6 +99,7 @@ public class Treatment {
             }
         }       
         
+        if(numOfTreat == 0) {return;}
         //Move to nextline
         sc.nextLine();
 

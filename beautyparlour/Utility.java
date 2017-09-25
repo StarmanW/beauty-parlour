@@ -12,7 +12,6 @@
  * final as to protect any inheritance or direct modification of the data. 
  * This is to provide a better security of the software.
  * 
- * 
  * @version 1.00 2017/7/25
  * @version 2.00 2017/9/19
  */
@@ -514,8 +513,8 @@ public final class Utility {
                     if(treat.get(a).getTreatmentCode().matches("^HC\\d{3}$")) {
                         System.out.println(treat.get(a).toString());    //Display Hair Care treatment list
                     }
-                }   treatmentHeaderFooter("footer");
-                ;
+                }   
+                treatmentHeaderFooter("footer");
                 treatPackgCodePrefix = "HC";        //Set the prefix code to "HC"
                 break;
             case "2":
@@ -524,8 +523,8 @@ public final class Utility {
                     if(treat.get(a).getTreatmentCode().matches("^SC\\d{3}$")) {
                         System.out.println(treat.get(a).toString());    //Display Skin Care treatment list
                     }
-                }   treatmentHeaderFooter("footer");
-                ;
+                }   
+                treatmentHeaderFooter("footer");
                 treatPackgCodePrefix = "SC";        //Set the prefix code to "SC"
                 break;
             case "3":
@@ -534,8 +533,8 @@ public final class Utility {
                     if(treat.get(a).getTreatmentCode().matches("^BC\\d{3}$")) {
                         System.out.println(treat.get(a).toString());    //Display Body Care treatment list
                     }
-                }   treatmentHeaderFooter("footer");
-                ;
+                }   
+                treatmentHeaderFooter("footer");
                 treatPackgCodePrefix = "BC";        //Set the prefix code to "BC"
                 break;
             case "4":
@@ -544,8 +543,8 @@ public final class Utility {
                     if(treat.get(a).getTreatmentCode().matches("^BS\\d{3}$")) {
                         System.out.println(treat.get(a).toString());    //Display Bridal Service list
                     }
-                }   treatmentHeaderFooter("footer");
-                ;
+                }   
+                treatmentHeaderFooter("footer");
                 treatPackgCodePrefix = "BS";        //Set the prefix code to "BS"
                 break;
             default:

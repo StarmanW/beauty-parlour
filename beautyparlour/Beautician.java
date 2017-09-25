@@ -4,7 +4,7 @@
  * This class defines the relevant information for a beautician.
  * Contains the beautician ID, date joined and specialization.
  * This class is a subclass which inherits from a superclass (Person) class.
- *
+ * 
  * @version 1.00 2017/7/25
  * @version 2.00 2017/9/19
  */
@@ -81,7 +81,7 @@ public class Beautician extends Person {
         
          while(!inputValid1) {
             try {
-                System.out.print("Enter number of beautician to add: ");
+                System.out.print("Enter number of beautician to add (0 for return back to menu): ");
                 numOfBeau = sc.nextInt();
                 inputValid1 = true;			
             } catch (InputMismatchException e) {
@@ -89,7 +89,9 @@ public class Beautician extends Person {
                 sc.nextLine();
             }
         }
-         
+        
+        if(numOfBeau == 0) {return;}
+        
         for(i = 0; i < numOfBeau; ++i) {
             
             System.out.println("\nBeautician No. " + (i+1));            
